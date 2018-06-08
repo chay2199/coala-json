@@ -1,7 +1,11 @@
+from json import load, dumps
 import os
 import unittest
 
 from coala_json.diagnostic import output_to_diagnostics
+
+import pytest
+from helpers.resources import sample_diagnostics
 
 
 def get_output(filename):
@@ -73,3 +77,23 @@ class DiagnosticTestCase(unittest.TestCase):
 
         # should be able to handle multiple bears & problems
         self.assertEqual(len(result), 3)
+
+
+def get_all_samples():
+    with open(sample_diagnostics) as samples:
+        return load(samples)['samples']
+
+
+def get_all_fixes_samples():
+    with open(sample_diagnostics) as samples:
+        return load(samples)['fixes']
+
+
+@pytest.mark.parametrize('sample', get_all_samples())
+def test_from_coala_op_json(sample):
+    coala = sample['coala']
+    exp_langserver = sample['langserver']
+
+    coala_json_op = dumps(coala)
+    out = output_to_diagnostics(coala_json_op)
+    assert out == exp_langserver
