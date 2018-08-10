@@ -1,5 +1,6 @@
 from json import load, dumps
 import os
+import sys
 import unittest
 
 from coala_json.diagnostic import (
@@ -107,8 +108,10 @@ def test_from_coala_op_json(sample):
 def test_fixes_load_from_coala_json(sample):
     diags, fixes = _output_to_lsp(dumps(sample))
     assert len(fixes) == 3
+    if sys.version_info < (3, 5):
+        fixes = sorted(fixes, key=lambda x: x['filename'])
     assert (fixes[0]['filename'] ==
-            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py')
+            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure1.py')
     assert fixes[0]['diff'] == unicode_diff_dedent("""
     ---
     +++
@@ -122,7 +125,7 @@ def test_fixes_load_from_coala_json(sample):
           pass
     """)
     assert (fixes[1]['filename'] ==
-            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py')
+            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure2.py')
     assert fixes[1]['diff'] == unicode_diff_dedent("""
     ---
     +++

@@ -228,7 +228,7 @@
             "confidence": 100,
             "debug_msg": "",
             "diffs": {
-              "/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py": "--- \n+++ \n@@ -1,5 +1,6 @@\n def test_function():\n-     hello = \"Hey\"\n+    hello = \"Hey\"\n+\n \n if True:\n      pass\n"
+              "/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure1.py": "--- \n+++ \n@@ -1,5 +1,6 @@\n def test_function():\n-     hello = \"Hey\"\n+    hello = \"Hey\"\n+\n \n if True:\n      pass\n"
             },
             "id": 114043415368839830363592685540474798853,
             "message": "The code does not comply to PEP8.",
@@ -258,7 +258,7 @@
             "confidence": 100,
             "debug_msg": "",
             "diffs": {
-              "/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py": "--- \n+++ \n@@ -2,5 +2,4 @@\n      hello = \"Hey\"\n \n if True:\n-     pass\n-\n+    pass\n"
+              "/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure2.py": "--- \n+++ \n@@ -2,5 +2,4 @@\n      hello = \"Hey\"\n \n if True:\n-     pass\n-\n+    pass\n"
             },
             "id": 248965969153426220505454526877482618366,
             "message": "The code does not comply to PEP8.",
