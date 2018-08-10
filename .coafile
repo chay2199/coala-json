@@ -1,0 +1,18 @@
+[python]
+ignore = build/**
+
+[python.pep8]
+bears = PEP8Bear, PycodestyleBear
+files = **/*.py
+max_line_length = 80
+
+default_actions = PEP8Bear: ApplyPatchAction
+
+[python.auto_imports]
+# Correct imports and unused code. This has an own section since it may not be
+# executed in parallel with the PEP8Bear which yields the same results in many
+# cases. This way they're run sequentially not harming each other.
+bears = PyUnusedCodeBear, PyImportSortBear
+default_actions =
+    PyUnusedCodeBear: ApplyPatchAction,
+    PyImportSortBear: ApplyPatchAction
