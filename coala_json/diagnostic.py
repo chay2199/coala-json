@@ -1,14 +1,15 @@
 import json
 
 
-def output_to_diagnostics(output):
+def _output_to_lsp(output):
     """
-    Turn output to diagnstics.
+    Turn output to diagnstics and completions.
     """
     if output is None:
-        return None
+        return None, None
     output_json = json.loads(output)['results']
     res = []
+    fixes = []
     for key, problems in output_json.items():
         section = key
         for problem in problems:
@@ -21,6 +22,18 @@ def output_to_diagnostics(output):
             message = problem['message']
             origin = problem['origin']
             real_message = '[{}] {}: {}'.format(section, origin, message)
+
+            # TODO Handle results for multiple files
+            # and also figure out a way to resolve
+            # overlapping patches.
+
+            if problem.get('diffs', None) is not None:
+                for file, diff in problem['diffs'].items():
+                    fixes.append({
+                        'filename': file,
+                        'diff': diff,
+                    })
+
             for code in problem['affected_code']:
                 """
                 Line position and character offset should be zero-based
@@ -53,4 +66,12 @@ def output_to_diagnostics(output):
                     'source': 'coala',
                     'message': real_message
                 })
-    return res
+
+    return res, fixes
+
+
+def output_to_diagnostics(output):
+    """
+    Turn output to diagnstics.
+    """
+    return _output_to_lsp(output)[0]

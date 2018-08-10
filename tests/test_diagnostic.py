@@ -2,10 +2,14 @@ from json import load, dumps
 import os
 import unittest
 
-from coala_json.diagnostic import output_to_diagnostics
+from coala_json.diagnostic import (
+    _output_to_lsp,
+    output_to_diagnostics,
+)
 
 import pytest
 from helpers.resources import sample_diagnostics
+from helpers.diff import unicode_diff_dedent
 
 
 def get_output(filename):
@@ -97,3 +101,49 @@ def test_from_coala_op_json(sample):
     coala_json_op = dumps(coala)
     out = output_to_diagnostics(coala_json_op)
     assert out == exp_langserver
+
+
+@pytest.mark.parametrize('sample', get_all_fixes_samples())
+def test_fixes_load_from_coala_json(sample):
+    diags, fixes = _output_to_lsp(dumps(sample))
+    assert len(fixes) == 3
+    assert (fixes[0]['filename'] ==
+            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py')
+    assert fixes[0]['diff'] == unicode_diff_dedent("""
+    ---
+    +++
+    @@ -1,5 +1,6 @@
+     def test_function():
+    -     hello = \"Hey\"
+    +    hello = \"Hey\"
+    +
+
+     if True:
+          pass
+    """)
+    assert (fixes[1]['filename'] ==
+            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py')
+    assert fixes[1]['diff'] == unicode_diff_dedent("""
+    ---
+    +++
+    @@ -2,5 +2,4 @@
+          hello = \"Hey\"
+
+     if True:
+    -     pass
+    -
+    +    pass
+    """)
+    assert (fixes[2]['filename'] ==
+            '/home/ksdme/Work/gsoc/coala-ls/tests/resources/failure3.py')
+    assert fixes[2]['diff'] == unicode_diff_dedent("""
+    ---
+    +++
+    @@ -1,5 +1,5 @@
+     def test_function():
+    -     hello = \"Hey\"
+    +     hello = 'Hey'
+
+     if True:
+          pass
+    """)
