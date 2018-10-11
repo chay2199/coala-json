@@ -56,7 +56,6 @@ lint:
 
 moban:
   image: python:3.5
-  allow_failure: true
   before_script:
     - pip install moban
   script:
