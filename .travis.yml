@@ -1,0 +1,46 @@
+sudo: false
+language: python
+python:
+  - 3.4.4
+  - 3.5
+  - 3.4.2
+
+stages:
+  - test
+
+jobs:
+  include:
+    - stage: test
+      python: 3.6
+      if: branch = master AND type = push
+
+env:
+  global:
+    - PATH="$PATH:$TRAVIS_BUILD_DIR/node_modules/.bin"
+    - BEARS_ZIP_URL=https://codeload.github.com/coala/coala-bears/zip
+
+cache:
+  pip: true
+  directories:
+    - node_modules
+    - docs/_build
+
+before_install:
+  # Use pip 9, so that setuptools can be downgraded.
+  # Apart from builds with python 2.7 and 3.5, it installs setuptools
+  # twice. So, it is required to uninstall one version manually.
+  - pip uninstall setuptools --yes
+  - pip install pip==9 setuptools==21
+
+  # For bears in .coafile requiring npm dependencies
+  - npm install --no-save
+
+script:
+  - python setup.py bdist_wheel
+  - curl -fsSL -o coala-bears.zip $BEARS_ZIP_URL/master
+  - pip install coala-bears.zip[alldeps] --pre -U
+  - coala --non-interactive
+
+notifications:
+  email: false
+
