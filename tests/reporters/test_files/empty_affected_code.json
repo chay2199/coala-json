@@ -1,0 +1,21 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [],
+        "applied_actions": {},
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 201692100148403814861617059850483666594,
+        "message": "Shortlog of HEAD commit does not match given regex: 9685748e29c2c10db54e4a87afcd7bef85f160d8",
+        "message_arguments": {},
+        "message_base": "Shortlog of HEAD commit does not match given regex: 9685748e29c2c10db54e4a87afcd7bef85f160d8",
+        "origin": "GitCommitBear",
+        "severity": 1
+      }
+    ]
+  }
+}

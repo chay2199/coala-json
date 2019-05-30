@@ -1,0 +1,76 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 0
+            },
+            "file": "/home/developer/Test/cppTest.cpp",
+            "start": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 0
+            },
+            "file": "/home/developer/Test/cppTest.cpp",
+            "start": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 0
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 216460512226748924571624610181762766186,
+        "message": "No copyright message found.  You should have a line: \"Copyright [year] <Copyright Owner>\"  [legal/copyright] [5]",
+        "message_arguments": {},
+        "message_base": "No copyright message found.  You should have a line: \"Copyright [year] <Copyright Owner>\"  [legal/copyright] [5]",
+        "origin": "CPPLintBear",
+        "severity": 1
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 1
+            },
+            "file": "/home/developer/Test/cppTest.cpp",
+            "start": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 1
+            },
+            "file": "/home/developer/Test/cppTest.cpp",
+            "start": {
+              "column": null,
+              "file": "/home/developer/Test/cppTest.cpp",
+              "line": 1
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 187199553047709401879495548544344808945,
+        "message": "Missing spaces around <<  [whitespace/operators] [3]",
+        "message_arguments": {},
+        "message_base": "Missing spaces around <<  [whitespace/operators] [3]",
+        "origin": "CPPLintBear",
+        "severity": 1
+      }
+    ]
+  }
+}

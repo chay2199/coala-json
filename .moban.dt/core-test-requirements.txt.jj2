@@ -1,0 +1,2 @@
+{% include 'test-requirements.txt.jj2' %}
+xmlschema~=1.0.11

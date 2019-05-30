@@ -1,0 +1,260 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": null,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 38
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": null,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 37
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": {
+          "/home/developer/coala-json/coala_json/TestOutput.py": "--- \n+++ \n@@ -34,8 +34,10 @@\n                         :param string: string object\n                         :return: sanitized error message\n                         \"\"\"\n-                        string = string.replace(\"&\", \"&amp;\").replace(\"\\\"\", \"&quot;\")\n-                        string = string.replace(\"<\", \"&lt;\").replace(\">\", \"&gt;\")\n+                        string = string.replace(\n+                            \"&\", \"&amp;\").replace(\"\\\"\", \"&quot;\")\n+                        string = string.replace(\n+                            \"<\", \"&lt;\").replace(\">\", \"&gt;\")\n                         return string\n                     message = sanitize(problem['message'])\n                     affected_line = problem['affected_code'][0]['end']['line']\n"
+        },
+        "id": 98287507649255155819794966379461957400,
+        "message": "The code \"does\" not comply to PEP8.",
+        "message_arguments": {},
+        "message_base": "The code does not comply to PEP8.",
+        "origin": "PEP8Bear",
+        "severity": 1
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 1
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 1
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 41569797782149910788800635922055715303,
+        "message": "C0111 - Missing module docstring",
+        "message_arguments": {},
+        "message_base": "C0111 - Missing module docstring",
+        "origin": "PyLintBear (C0111)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 6
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 6
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 150679393533217129340645097603295613333,
+        "message": "C0111 - Missing class docstring",
+        "message_arguments": {},
+        "message_base": "C0111 - Missing class docstring",
+        "origin": "PyLintBear (C0111)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 7
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 7
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 162471950046113746579998590060865563906,
+        "message": "C0111 - Missing method docstring",
+        "message_arguments": {},
+        "message_base": "C0111 - Missing method docstring",
+        "origin": "PyLintBear (C0111)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 33,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 7
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 33,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 7
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 13062751018186622830033151563967163067,
+        "message": "W0622 - Redefining built-in 'format'",
+        "message_arguments": {},
+        "message_base": "W0622 - Redefining built-in 'format'",
+        "origin": "PyLintBear (W0622)",
+        "severity": 1
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 22,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 11
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 22,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 11
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 104323675298663081708949630299515227832,
+        "message": "W0622 - Redefining built-in 'format'",
+        "message_arguments": {},
+        "message_base": "W0622 - Redefining built-in 'format'",
+        "origin": "PyLintBear (W0622)",
+        "severity": 1
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 17
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 17
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 301539103653939122177038642867168021066,
+        "message": "R0914 - Too many local variables (17/15)",
+        "message_arguments": {},
+        "message_base": "R0914 - Too many local variables (17/15)",
+        "origin": "PyLintBear (R0914)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 17
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 4,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 17
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 124413277704943678249651927007846250153,
+        "message": "R0201 - Method could be a function",
+        "message_arguments": {},
+        "message_base": "R0201 - Method could be a function",
+        "origin": "PyLintBear (R0201)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 6
+            },
+            "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/coala-json/coala_json/TestOutput.py",
+              "line": 6
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 280394484086977571979054215896422962272,
+        "message": "R0903 - Too few public methods (1/2)",
+        "message_arguments": {},
+        "message_base": "R0903 - Too few public methods (1/2)",
+        "origin": "PyLintBear (R0903)",
+        "severity": 0
+      }
+    ]
+  }
+}

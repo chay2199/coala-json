@@ -7,10 +7,11 @@ license: MIT
 version: 0.0.1-dev
 package_module: coala_json
 docs_dir: false
-test_file_glob: 'test_*.py'
+test_file_glob: 'test_*.py *Test.py'
 
 configuration:
   template_dir:
+    - .moban.dt/
     - ../coala-mobans/templates/
     - ../coala-mobans/assets/
   configuration: .moban.yaml
@@ -20,7 +21,7 @@ targets:
   - .gitlab-ci.yml: ci/gitlab-ci.yml.jj2
   - setup.py: coala-setup.py.jj2
   - setup.cfg: setup.cfg.jj2
-  - test-requirements.txt: test-requirements.txt.jj2
+  - test-requirements.txt: core-test-requirements.txt.jj2
   - .ci/check_moban.sh: ci/check_moban.sh
   - .ci/appveyor.yml: ci/appveyor.yml.jj2
   - .ci/run_with_env.cmd: run_with_env.cmd

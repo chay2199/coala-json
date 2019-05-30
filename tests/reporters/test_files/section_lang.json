@@ -1,0 +1,40 @@
+{
+  "results": {
+    "cli": [],
+    "python": [],
+    "python.auto_imports": [],
+    "python.pep8": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 1,
+              "file": "/home/developer/GSOC/coala-json/setup.py",
+              "filename": "/home/developer/GSOC/coala-json/setup.py",
+              "line": 102
+            },
+            "file": "/home/developer/GSOC/coala-json/setup.py",
+            "start": {
+              "column": 1,
+              "file": "/home/developer/GSOC/coala-json/setup.py",
+              "filename": "/home/developer/GSOC/coala-json/setup.py",
+              "line": 102
+            }
+          }
+        ],
+        "applied_actions": {},
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 214069412800213211650446595132345570560,
+        "message": "E303 too many blank lines (4)",
+        "message_arguments": {},
+        "message_base": "E303 too many blank lines (4)",
+        "origin": "PycodestyleBear (E303)",
+        "severity": 1
+      }
+    ]
+  }
+}
