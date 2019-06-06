@@ -1,7 +1,6 @@
-variables:
-  PYTHON: python3
-  DEBIAN_FRONTEND: noninteractive
-  XDG_CACHE_HOME: "$CI_PROJECT_DIR/.cache/"
+# Start ignoring YAMLLintBear
+include: 'https://gitlab.com/coala/mobans/raw/master/templates/ci/gitlab-ci-base.yml'
+# Stop ignoring YAMLLintBear
 
 cache:
   paths:
@@ -13,36 +12,31 @@ cache:
   $PYTHON -m pip install setuptools==21 pip==9
   pip install -r test-requirements.txt
 
-.common_script: &common_script
-  - $PYTHON -m pytest --cov-fail-under=100
-  - $PYTHON -m codecov
-
-tests:3.4:
-  image: python:3.4-alpine
+.common_script:
   before_script:
     - *common_deps_script
-  script: *common_script
+  script:
+    - $PYTHON -m pytest --cov-fail-under=100
+    - $PYTHON -m codecov
+  retry: 2
+tests:3.4:
+  extends: .common_script
+  image: python:3.4-alpine
   coverage: '/Total coverage: \d+\.\d+%/'
 
 tests:3.5:
+  extends: .common_script
   image: python:3.5-alpine
-  before_script:
-    - *common_deps_script
-  script: *common_script
   coverage: '/Total coverage: \d+\.\d+%/'
 
 tests:3.6:
+  extends: .common_script
   image: python:3.6-alpine
-  before_script:
-    - *common_deps_script
-  script: *common_script
   coverage: '/Total coverage: \d+\.\d+%/'
 
 tests:3.7:
+  extends: .common_script
   image: python:3.7-alpine
-  before_script:
-    - *common_deps_script
-  script: *common_script
   coverage: '/Total coverage: \d+\.\d+%/'
 
 lint:
@@ -57,6 +51,6 @@ lint:
 moban:
   image: python:3.5
   before_script:
-    - pip install moban
+    - pip install moban~=0.3.3
   script:
     - .ci/check_moban.sh
