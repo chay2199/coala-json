@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<testsuites>
-<testsuite package="GitCommitBear" timestamp="2019-06-06T09:21:08.106041" tests="1" errors="1" name="None">
-<testcase name="GitCommitBear Shortlog of HEAD commit does not match given regex: 9685748e29c2c10db54e4a87afcd7bef85f160d8">
-<error message="line: None, Column: None, Shortlog of HEAD commit does not match given regex: 9685748e29c2c10db54e4a87afcd7bef85f160d8"></error>
-</testcase>
-</testsuite>
-</testsuites>
