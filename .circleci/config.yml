@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  python-3.4:
+    docker:
+      - image: circleci/python:3.4
+
+    steps: &build
+    - checkout
+    - run:
+        name: env
+        command: |
+          echo "export NVM_DIR=$HOME/.nvm" >> $BASH_ENV
+          echo "export PATH=~/.local/bin:$PATH" >> $BASH_ENV
+    - run:
+        name: dependencies
+        command: |
+          pip install --user \
+          -r test-requirements.txt
+    - run:
+        name: coala-ci
+        when: always
+        command: |
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          python setup.py bdist_wheel
+          pip install --user coala-bears[alldeps] --pre -U
+          pip install --user "packaging~=16.8"
+          coala --non-interactive
+    - store_test_results:
+        path: reports/junit
+    - store_artifacts:
+        path: reports/junit
+
+  python-3.5:
+    docker:
+      - image: circleci/python:3.5
+
+    steps: *build
+
+  python-3.6:
+    docker:
+      - image: circleci/python:3.6
+
+    steps: *build
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - python-3.4
+      - python-3.5
+      - python-3.6
