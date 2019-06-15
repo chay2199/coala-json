@@ -23,6 +23,5 @@ targets:
   - setup.cfg: setup.cfg.jj2
   - test-requirements.txt: core-test-requirements.txt.jj2
   - .ci/check_moban.sh: ci/check_moban.sh
-  - .ci/appveyor.yml: ci/appveyor.yml.jj2
   - .ci/run_with_env.cmd: run_with_env.cmd
   - tests/conftest.py: conftest.py

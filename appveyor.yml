@@ -15,6 +15,14 @@ environment:
       PYTHON_VERSION: "3.4.4"
       PYTHON_ARCH: "64"
 
+    - PYTHON: "C:\\Python34"
+      PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python35-x64"
+      PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python36"
       PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "32"
@@ -22,15 +30,10 @@ environment:
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
+
 cache:
   - "C:\\pip_cache"
-  - "node_modules"
   - "C:\\Users\\appveyor\\AppData\\Local\\coala-bears\\coala-bears"
-  - "C:\\Users\\appveyor\\AppData\\Roaming\\nltk_data"
-
-branches:
-  except:
-    - /^sils\/.*/
 
 install:
   # Prepend newly installed Python to the PATH of this build (this cannot be
@@ -41,20 +44,17 @@ install:
   # Check that we have the expected version and architecture for Python
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
-  - "%CMD_IN_ENV% python -m pip install --upgrade setuptools==21 pip==9"
-  - "%CMD_IN_ENV% python -m pip install -r test-requirements.txt \
-"
+  - "%CMD_IN_ENV% python -m pip install --upgrade setuptools==21 pip~=9.0.1"
+  - "%CMD_IN_ENV% python -m pip install -r test-requirements.txt"
 
 build: false  # Not a C# project, build stuff at the test step instead.
 
 test_script:
-  - "%CMD_IN_ENV% py.test"
+  - >
+    "%CMD_IN_ENV% python -m pytest
   - "%CMD_IN_ENV% python setup.py install"
   - "%CMD_IN_ENV% python -m pip install \
     git+https://github.com/coala/coala"
-  - "%CMD_IN_ENV% python -m pip install \
-    git+https://github.com/coala/coala-bears"
-  - sed -i '/ShellCheckBear/d' .coafile
   - "%CMD_IN_ENV% coala --ci"
 
 on_success:
@@ -65,3 +65,11 @@ on_failure:
 
 matrix:
   fast_finish: true
+
+on_finish:
+  - ps: |
+      $wc = New-Object 'System.Net.WebClient'
+      $url = "https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)"
+      foreach ($file in Get-ChildItem -Path 'C:\projects\coala-json\reports\junit\*.xml' -Recurse) {
+              $wc.UploadFile($url, (Resolve-Path $file))
+            }
