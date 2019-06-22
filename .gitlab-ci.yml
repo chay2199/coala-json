@@ -9,7 +9,7 @@ cache:
 
 .common_deps_script: &common_deps_script |
   apk add --no-cache git  # for git+ requirements
-  $PYTHON -m pip install setuptools==21 pip==9
+  $PYTHON -m pip install setuptools==21 pip==9.0.1
   pip install -r test-requirements.txt
 
 .common_script:
@@ -42,7 +42,7 @@ tests:3.7:
 lint:
   image: python:3.5
   before_script:
-    - $PYTHON -m pip install setuptools==21 pip==9
+    - $PYTHON -m pip install setuptools==21 pip==9.0.1
     - pip install 'git+https://github.com/coala/coala#egg=coala'
     - pip install 'git+https://github.com/coala/coala-bears#egg=coala-bears'
   script:
