@@ -19,6 +19,10 @@ jobs:
             pip install --user \
             -r test-requirements.txt \
       - run:
+          name: pytest
+          when: always
+          command: python -m pytest
+      - run:
           name: coala-ci
           when: always
           command: |
@@ -26,7 +30,7 @@ jobs:
             python setup.py bdist_wheel
             pip install --user coala-bears[alldeps] --pre -U
             pip install --user "packaging~=16.8"
-            coala --non-interactive
+            coala --json -o output.json
       - run:
           name: ResultReporter
           when: always
