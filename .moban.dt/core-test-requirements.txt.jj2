@@ -1,2 +1,4 @@
 {% include 'test-requirements.txt.jj2' %}
 xmlschema~=1.0.11
+coala~=0.11.0
+coala-bears

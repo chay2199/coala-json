@@ -47,20 +47,21 @@ install:
   - "%CMD_IN_ENV% python -m pip install --upgrade setuptools==21 pip~=9.0.1"
   - "%CMD_IN_ENV% python -m pip install -r test-requirements.txt"
 
+  # Add to path the current folder
+  - "SET PYTHONPATH=%PYTHONPATH%;%CD%"
+
 build: false  # Not a C# project, build stuff at the test step instead.
 
 test_script:
-  - >
-    "%CMD_IN_ENV% python -m pytest
-  - "%CMD_IN_ENV% python setup.py install"
-  - "%CMD_IN_ENV% python -m pip install \
-    git+https://github.com/coala/coala"
-  - "%CMD_IN_ENV% coala --ci"
+  - "%CMD_IN_ENV% coala --json -o output.json"
+  - "%CMD_IN_ENV% python -m pytest"
 
 on_success:
+  - "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --junit -f output.json -o repo.xml"
   - codecov
 
 on_failure:
+  - "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --junit -f output.json -o repo.xml"
   - codecov
 
 matrix:
@@ -70,6 +71,6 @@ on_finish:
   - ps: |
       $wc = New-Object 'System.Net.WebClient'
       $url = "https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)"
-      foreach ($file in Get-ChildItem -Path 'C:\projects\coala-json\reports\junit\*.xml' -Recurse) {
+      foreach ($file in Get-ChildItem -Path 'C:\projects\coala-json\*.xml' -Recurse) {
               $wc.UploadFile($url, (Resolve-Path $file))
             }

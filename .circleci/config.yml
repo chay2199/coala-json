@@ -5,30 +5,42 @@ jobs:
       - image: circleci/python:3.4
 
     steps: &build
-    - checkout
-    - run:
-        name: env
-        command: |
-          echo "export NVM_DIR=$HOME/.nvm" >> $BASH_ENV
-          echo "export PATH=~/.local/bin:$PATH" >> $BASH_ENV
-    - run:
-        name: dependencies
-        command: |
-          pip install --user \
-          -r test-requirements.txt
-    - run:
-        name: coala-ci
-        when: always
-        command: |
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          python setup.py bdist_wheel
-          pip install --user coala-bears[alldeps] --pre -U
-          pip install --user "packaging~=16.8"
-          coala --non-interactive
-    - store_test_results:
-        path: reports/junit
-    - store_artifacts:
-        path: reports/junit
+      - checkout
+
+      - run:
+          name: env
+          command: |
+            echo "export NVM_DIR=$HOME/.nvm" >> $BASH_ENV
+            echo "export PATH=~/.local/bin:$PATH" >> $BASH_ENV
+            echo 'export PYTHONPATH="/home/circleci/project:${PYTHONPATH}"' >> $BASH_ENV
+      - run:
+          name: dependencies
+          command: |
+            pip install --user \
+            -r test-requirements.txt \
+      - run:
+          name: coala-ci
+          when: always
+          command: |
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            python setup.py bdist_wheel
+            pip install --user coala-bears[alldeps] --pre -U
+            pip install --user "packaging~=16.8"
+            coala --non-interactive
+      - run:
+          name: ResultReporter
+          when: always
+          command: python /home/circleci/project/coala_json/reporters/cli/cli.py --junit -f output.json -o repo.xml
+      - run:
+          name: codecov
+          when: always
+          command: python -m codecov
+      - store_test_results:
+          path: ./
+          destination: reports/junit
+      - store_artifacts:
+          path: ./
+          destination: reports/junit
 
   python-3.5:
     docker:
