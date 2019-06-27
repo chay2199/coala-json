@@ -2,6 +2,10 @@
 include: 'https://gitlab.com/coala/mobans/raw/master/templates/ci/gitlab-ci-base.yml'
 # Stop ignoring YAMLLintBear
 
+variables:
+  DEBIAN_FRONTEND: noninteractive
+  XDG_CACHE_HOME: "$CI_PROJECT_DIR/.cache/"
+
 cache:
   paths:
     - $CI_PROJECT_PATH/.cache/pip
@@ -40,7 +44,7 @@ tests:3.7:
   coverage: '/Total coverage: \d+\.\d+%/'
 
 lint:
-  image: python:3.5
+  image: python:3.6
   before_script:
     - $PYTHON -m pip install setuptools==21 pip==9.0.1
     - pip install 'git+https://github.com/coala/coala#egg=coala'
@@ -49,7 +53,7 @@ lint:
     - coala --ci
 
 moban:
-  image: python:3.5
+  image: python:3.6
   before_script:
     - pip install moban~=0.3.3
   script:
