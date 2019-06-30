@@ -23,15 +23,12 @@ class JunitReporter(ResultReporter):
         junit = ''
         for problems in output_json.values():
             for problem in problems:
-                message = ResultReporter.sanitize(problem['message'])
-                try:
-                    affected_line = problem['affected_code'][0]['end']['line']
-                    affected_col = problem['affected_code'][0]['end']['column']
-                    testsuite_name = problem['affected_code'][0]['file']
-                except IndexError:
-                    affected_line = affected_col = testsuite_name = None
-                testsuite_package = problem['origin'].split(" ")[0]
-                errors = len(problems)
+                message = self.loader.extract_message(problem)
+                affected_line = self.loader.extract_affected_line(problem)
+                affected_col = self.loader.extract_affected_column(problem)
+                testsuite_name = self.loader.extract_file(problem)
+                testsuite_package = self.loader.extract_origin(problem)
+                errors = self.loader.extract_errors(problems)
                 testcase_name = ResultReporter.extract_error_code(message)
                 error_message = "line: {}, Column: {}, {}".format(
                     affected_line, affected_col, message)

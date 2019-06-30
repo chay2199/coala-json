@@ -3,6 +3,7 @@ import argparse
 import sys
 
 from coala_json.reporters.JunitReporter import JunitReporter
+from coala_json.loader.coalaJsonLoader import coalaJsonLoader
 
 
 def get_path(filepath):
@@ -33,7 +34,8 @@ def main(arg):
 def produce_report(parser, args):
     if args.junit and args.input:
         with open(get_path(args.input)) as input_file:
-            j = JunitReporter(input_file)
+            loader = coalaJsonLoader()
+            j = JunitReporter(loader, input_file)
             output = j.to_output()
         with open(args.output, 'w+') as report:
             report.write(output)
