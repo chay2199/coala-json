@@ -18,6 +18,7 @@ class CliTestCase(unittest.TestCase):
         """
         parsed = self.parser.parse_args([])
         self.assertEqual(parsed.junit, None)
+        self.assertEqual(parsed.checkstyle, None)
         self.assertEqual(parsed.input, None)
         self.assertEqual(parsed.output, 'test_report.xml')
 
@@ -27,6 +28,17 @@ class CliTestCase(unittest.TestCase):
         """
         parsed = self.parser.parse_args(['--junit'])
         self.assertEqual(parsed.junit, True)
+        self.assertEqual(parsed.checkstyle, None)
+        self.assertEqual(parsed.input, None)
+        self.assertEqual(parsed.output, 'test_report.xml')
+
+    def test_with_checkstyle_arg(self):
+        """
+        User passes only junit argument
+        """
+        parsed = self.parser.parse_args(['--checkstyle'])
+        self.assertEqual(parsed.junit, None)
+        self.assertEqual(parsed.checkstyle, True)
         self.assertEqual(parsed.input, None)
         self.assertEqual(parsed.output, 'test_report.xml')
 
@@ -34,20 +46,23 @@ class CliTestCase(unittest.TestCase):
         """
         User passes empty junit argument
         """
-        parsed = self.parser.parse_args(['-f', 'test.json', '-o', 'repo.xml'])
+        parsed = self.parser.parse_args(['--checkstyle', '-f', 'test.json',
+                                         '-o', 'report.xml'])
         self.assertEqual(parsed.junit, None)
+        self.assertEqual(parsed.checkstyle, True)
         self.assertEqual(parsed.input, 'test.json')
-        self.assertEqual(parsed.output, 'repo.xml')
+        self.assertEqual(parsed.output, 'report.xml')
 
     def test_with_complete_args(self):
         """
         User passes complete arguments
         """
-        parsed = self.parser.parse_args(['--junit', '-f', 'test.json', '-o',
-                                         'repo.xml'])
+        parsed = self.parser.parse_args(['--junit', '-f',
+                                         'test.json', '-o', 'junit.xml'])
         self.assertEqual(parsed.junit, True)
+        self.assertEqual(parsed.checkstyle, None)
         self.assertEqual(parsed.input, 'test.json')
-        self.assertEqual(parsed.output, 'repo.xml')
+        self.assertEqual(parsed.output, 'junit.xml')
 
     def test_main(self):
         """
@@ -59,18 +74,22 @@ class CliTestCase(unittest.TestCase):
             self.assertEqual(cm.exception.code, 2)
 
     def test_produce_report(self):
-        os.system('coala --json > {}'.format(cli.get_path('output.json')))
-        parsed = self.parser.parse_args(['--junit', '-f', 'output.json',
-                                         '-o', 'repo.xml'])
-        self.assertIsNone(cli.produce_report(self.parser, parsed))
-
-        parsed = self.parser.parse_args(['-f', 'output.json', '-o',
-                                         'repo.xml'])
+        parsed = self.parser.parse_args(['--junit', '-o', 'report.xml'])
         with self.assertRaisesRegex(SystemExit, '2') as cm:
             cli.produce_report(self.parser, parsed)
             self.assertEqual(cm.exception.code, 2)
 
-        parsed = self.parser.parse_args(['--junit', '-o', 'repo.xml'])
+        os.system('coala --json > {}'.format(cli.get_path('output.json')))
+        parsed = self.parser.parse_args(['--junit', '-f', 'output.json',
+                                         '-o', 'report.xml'])
+        self.assertIsNone(cli.produce_report(self.parser, parsed))
+
+        parsed = self.parser.parse_args(['--checkstyle', '-f', 'output.json',
+                                         '-o', 'report.xml'])
+        self.assertIsNone(cli.produce_report(self.parser, parsed))
+
+        parsed = self.parser.parse_args(['-f', 'output.json', '-o',
+                                         'report.xml'])
         with self.assertRaisesRegex(SystemExit, '2') as cm:
             cli.produce_report(self.parser, parsed)
             self.assertEqual(cm.exception.code, 2)
