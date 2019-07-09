@@ -25,6 +25,10 @@ class coalaJsonLoader(JsonLoader):
         return coalaJsonLoader.sanitize(problem['message'])
 
     @staticmethod
+    def extract_raw_message(problem):
+        return problem['message']
+
+    @staticmethod
     def extract_affected_line(problem):
         if problem['affected_code']:
             return problem['affected_code'][0]['end']['line']
@@ -42,6 +46,10 @@ class coalaJsonLoader(JsonLoader):
     @staticmethod
     def extract_origin(problem):
         return problem['origin'].split(" ")[0]
+
+    @staticmethod
+    def extract_severity(problem):
+        return problem['severity']
 
     @staticmethod
     def extract_errors(problems):

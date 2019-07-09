@@ -1,0 +1,83 @@
+TAP version 13
+1..9
+not ok 1 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 38, Column - None, The code "does" not comply to PEP8.
+  severity: 1
+  data:
+    line: 38
+    column: None
+    ruleId: The code "does" not comply to PEP8.
+  ...
+ok 2 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 1, Column - 0, C0111 - Missing module docstring
+  severity: 0
+  data:
+    line: 1
+    column: 0
+    ruleId: C0111
+  ...
+ok 3 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 6, Column - 0, C0111 - Missing class docstring
+  severity: 0
+  data:
+    line: 6
+    column: 0
+    ruleId: C0111
+  ...
+ok 4 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 7, Column - 4, C0111 - Missing method docstring
+  severity: 0
+  data:
+    line: 7
+    column: 4
+    ruleId: C0111
+  ...
+not ok 5 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 7, Column - 33, W0622 - Redefining built-in 'format'
+  severity: 1
+  data:
+    line: 7
+    column: 33
+    ruleId: W0622
+  ...
+not ok 6 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 11, Column - 22, W0622 - Redefining built-in 'format'
+  severity: 1
+  data:
+    line: 11
+    column: 22
+    ruleId: W0622
+  ...
+ok 7 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 17, Column - 4, R0914 - Too many local variables (17/15)
+  severity: 0
+  data:
+    line: 17
+    column: 4
+    ruleId: R0914
+  ...
+ok 8 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 17, Column - 4, R0201 - Method could be a function
+  severity: 0
+  data:
+    line: 17
+    column: 4
+    ruleId: R0201
+  ...
+ok 9 - /home/developer/coala-json/coala_json/TestOutput.py
+  ---
+  message: line - 6, Column - 0, R0903 - Too few public methods (1/2)
+  severity: 0
+  data:
+    line: 6
+    column: 0
+    ruleId: R0903
+  ...

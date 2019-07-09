@@ -1,0 +1,11 @@
+TAP version 13
+1..1
+not ok 1 - /home/developer/GSOC/coala-json/setup.py
+  ---
+  message: line - 102, Column - 1, E303 too many blank lines (4)
+  severity: 1
+  data:
+    line: 102
+    column: 1
+    ruleId: E303
+  ...
