@@ -17,6 +17,8 @@ def create_parser():
     parser.add_argument('--checkstyle', const=True, action='store_const',
                         help='mode in which coala will produce a'
                              ' Checkstyle report')
+    parser.add_argument('--tap', const=True, action='store_const',
+                        help='mode in which coala will produce a TAP report')
     parser.add_argument('-f', '--input', help='path of the json input file')
     parser.add_argument('-o', '--output', default='test_report.xml',
                         help='path of output report file')
