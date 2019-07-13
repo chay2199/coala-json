@@ -26,7 +26,7 @@ class CheckstyleReporter(ResultReporter):
                 error_col = self.loader.extract_affected_column(problem)
                 file_name = self.loader.extract_file(problem)
                 source = self.loader.extract_origin(problem)
-                error_code = ResultReporter.extract_error_code(message)
+                error_code = self.loader.extract_error_code(message)
                 report += ('<file name="{}">\n<error line="{}" column="{}"'
                            ' message="{}" source="{} {}">\n</error>\n'
                            '</file>\n'.format(file_name, error_line,

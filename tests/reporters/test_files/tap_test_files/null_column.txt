@@ -7,7 +7,7 @@ not ok 1 - /home/developer/Test/cppTest.cpp
   data:
     line: 0
     column: None
-    ruleId: No copyright message found.  You should have a line - "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+    ruleId:
   ...
 not ok 2 - /home/developer/Test/cppTest.cpp
   ---
@@ -16,5 +16,5 @@ not ok 2 - /home/developer/Test/cppTest.cpp
   data:
     line: 1
     column: None
-    ruleId: Missing spaces around <<  [whitespace/operators] [3]
+    ruleId:
   ...
