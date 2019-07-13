@@ -29,11 +29,11 @@ class JunitReporter(ResultReporter):
                 testsuite_name = self.loader.extract_file(problem)
                 testsuite_package = self.loader.extract_origin(problem)
                 errors = self.loader.extract_errors(problems)
-                testcase_name = ResultReporter.extract_error_code(message)
+                testcase_name = self.loader.extract_error_code(message)
                 error_message = "line: {}, Column: {}, {}".format(
                     affected_line, affected_col, message)
                 junit += ('<testsuite package="{}" timestamp="{}" tests="{}" '
-                          'errors="{}" name="{}">\n<testcase name="{} {}">\n'
+                          'errors="{}" name="{}">\n<testcase name="{}{}">\n'
                           '<error message="{}"></error>\n</testcase>\n'
                           '</testsuite>\n'.format(testsuite_package, timestamp,
                                                   errors, errors,

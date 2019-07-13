@@ -1,3 +1,5 @@
+import re
+
 from coala_json.loader.JsonLoader import JsonLoader
 
 
@@ -19,6 +21,18 @@ class coalaJsonLoader(JsonLoader):
         for k, v in mapping.items():
             error_message = error_message.replace(k, v)
         return error_message
+
+    @staticmethod
+    def extract_error_code(error_message):
+        """
+        Return error code from error message or an empty string if
+        no error code is found
+        """
+        try:
+            pattern = re.search('[A-Z][0-9]{3,4}', error_message).group()
+            return ' {}'.format(pattern)
+        except AttributeError:
+            return ''
 
     @staticmethod
     def extract_message(problem):

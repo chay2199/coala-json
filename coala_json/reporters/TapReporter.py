@@ -28,7 +28,7 @@ class TapReporter(ResultReporter):
                 severity = self.loader.extract_severity(problem)
                 affected_line = self.loader.extract_affected_line(problem)
                 affected_col = self.loader.extract_affected_column(problem)
-                rule_id = ResultReporter.extract_error_code(message)
+                rule_id = self.loader.extract_error_code(message)
                 tests = self.loader.extract_errors(problems)
                 error_message = "line - {}, Column - {}, {}".format(
                     affected_line, affected_col, message)

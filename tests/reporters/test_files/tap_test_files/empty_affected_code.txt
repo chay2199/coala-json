@@ -7,5 +7,5 @@ not ok 1 - None
   data:
     line: None
     column: None
-    ruleId: Shortlog of HEAD commit does not match given regex - 9685748e29c2c10db54e4a87afcd7bef85f160d8
+    ruleId:
   ...

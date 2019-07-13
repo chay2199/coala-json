@@ -7,7 +7,7 @@ not ok 1 - /home/developer/coala-json/coala_json/TestOutput.py
   data:
     line: 38
     column: None
-    ruleId: The code "does" not comply to PEP8.
+    ruleId:
   ...
 ok 2 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
