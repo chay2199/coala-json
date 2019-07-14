@@ -1,0 +1,47 @@
+jobs:
+- job: 'Test'
+  pool:
+    vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
+  strategy:
+    matrix:
+      Python34:
+        python.version: '3.4'
+      Python35:
+        python.version: '3.5'
+      Python36:
+        python.version: '3.6'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+  - script: |
+      python -m pip install --upgrade setuptools==21 pip~=9.0.1
+      pip install -r test-requirements.txt
+    displayName: 'dependencies'
+  - script: |
+      python -m pytest
+    displayName: 'Test with pytest'
+  - script: |
+      cd .. && coala --json -o output.json
+    displayName: 'run-coala'
+  # Copy files
+  # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: /home/vsts/work/1/
+      contents: '**'
+      targetFolder: $(pwd)
+    condition: always()
+  - script: |
+      export PYTHONPATH=$PYTHONPATH:$(pwd)
+      python $(pwd)/coala_json/reporters/cli/cli.py --junit -f output.json -o report.xml
+    displayName: 'run-coala-json'
+    condition: always()
+  # Publish Test Results
+  # Publish test results to Azure Pipelines
+  - task: PublishTestResults@1
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: always()
