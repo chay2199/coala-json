@@ -2,7 +2,7 @@ TAP version 13
 1..2
 not ok 1 - /home/developer/Test/cppTest.cpp
   ---
-  message: line - 0, Column - None, No copyright message found.  You should have a line - "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+  message: No copyright message found.  You should have a line - "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
   severity: 1
   data:
     line: 0
@@ -11,7 +11,7 @@ not ok 1 - /home/developer/Test/cppTest.cpp
   ...
 not ok 2 - /home/developer/Test/cppTest.cpp
   ---
-  message: line - 1, Column - None, Missing spaces around <<  [whitespace/operators] [3]
+  message: Missing spaces around <<  [whitespace/operators] [3]
   severity: 1
   data:
     line: 1

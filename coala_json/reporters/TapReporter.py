@@ -24,14 +24,12 @@ class TapReporter(ResultReporter):
             for test_no, problem in enumerate(problems):
                 file_name = self.loader.extract_file(problem)
                 message = self.loader.extract_raw_message(problem)
-                message = message.replace(':', ' -')
+                error_message = message.replace(':', ' -')
                 severity = self.loader.extract_severity(problem)
                 affected_line = self.loader.extract_affected_line(problem)
                 affected_col = self.loader.extract_affected_column(problem)
                 rule_id = self.loader.extract_error_code(message)
                 tests = self.loader.extract_errors(problems)
-                error_message = "line - {}, Column - {}, {}".format(
-                    affected_line, affected_col, message)
                 # severity 0 is for errors related to INFO, the coala-ci build
                 # still passes
                 status = 'ok' if severity == 0 else 'not ok'

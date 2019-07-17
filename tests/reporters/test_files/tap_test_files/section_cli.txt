@@ -2,7 +2,7 @@ TAP version 13
 1..9
 not ok 1 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 38, Column - None, The code "does" not comply to PEP8.
+  message: The code "does" not comply to PEP8.
   severity: 1
   data:
     line: 38
@@ -11,7 +11,7 @@ not ok 1 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 2 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 1, Column - 0, C0111 - Missing module docstring
+  message: C0111 - Missing module docstring
   severity: 0
   data:
     line: 1
@@ -20,7 +20,7 @@ ok 2 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 3 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 6, Column - 0, C0111 - Missing class docstring
+  message: C0111 - Missing class docstring
   severity: 0
   data:
     line: 6
@@ -29,7 +29,7 @@ ok 3 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 4 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 7, Column - 4, C0111 - Missing method docstring
+  message: C0111 - Missing method docstring
   severity: 0
   data:
     line: 7
@@ -38,7 +38,7 @@ ok 4 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 not ok 5 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 7, Column - 33, W0622 - Redefining built-in 'format'
+  message: W0622 - Redefining built-in 'format'
   severity: 1
   data:
     line: 7
@@ -47,7 +47,7 @@ not ok 5 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 not ok 6 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 11, Column - 22, W0622 - Redefining built-in 'format'
+  message: W0622 - Redefining built-in 'format'
   severity: 1
   data:
     line: 11
@@ -56,7 +56,7 @@ not ok 6 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 7 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 17, Column - 4, R0914 - Too many local variables (17/15)
+  message: R0914 - Too many local variables (17/15)
   severity: 0
   data:
     line: 17
@@ -65,7 +65,7 @@ ok 7 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 8 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 17, Column - 4, R0201 - Method could be a function
+  message: R0201 - Method could be a function
   severity: 0
   data:
     line: 17
@@ -74,7 +74,7 @@ ok 8 - /home/developer/coala-json/coala_json/TestOutput.py
   ...
 ok 9 - /home/developer/coala-json/coala_json/TestOutput.py
   ---
-  message: line - 6, Column - 0, R0903 - Too few public methods (1/2)
+  message: R0903 - Too few public methods (1/2)
   severity: 0
   data:
     line: 6

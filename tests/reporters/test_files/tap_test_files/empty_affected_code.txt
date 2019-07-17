@@ -2,7 +2,7 @@ TAP version 13
 1..1
 not ok 1 - None
   ---
-  message: line - None, Column - None, Shortlog of HEAD commit does not match given regex - 9685748e29c2c10db54e4a87afcd7bef85f160d8
+  message: Shortlog of HEAD commit does not match given regex - 9685748e29c2c10db54e4a87afcd7bef85f160d8
   severity: 1
   data:
     line: None
