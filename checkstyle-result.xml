@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="/home/developer/GSOC/coala-json/setup.py">
+<error line="102" column="1" message="E303 too many blank lines (4)" source=" E303 PycodestyleBear">
+</error>
+</file>
+</checkstyle>

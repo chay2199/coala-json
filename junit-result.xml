@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+<testsuite package="PycodestyleBear" timestamp="2019-07-17T07:14:09.587010" tests="1" errors="1" name="/home/developer/GSOC/coala-json/setup.py">
+<testcase name="PycodestyleBear E303">
+<error message="line: 102, Column: 1, E303 too many blank lines (4)"></error>
+</testcase>
+</testsuite>
+</testsuites>
