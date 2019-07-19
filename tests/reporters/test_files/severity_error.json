@@ -1,0 +1,34 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            },
+            "file": "/home/developer/GSoC-Test/p.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 241099071543858679359884208491893122633,
+        "message": "E0001 - invalid syntax (<string>, line 1)",
+        "message_arguments": {},
+        "message_base": "E0001 - invalid syntax (<string>, line 1)",
+        "origin": "PyLintBear (E0001)",
+        "severity": 2
+      }
+    ]
+  }
+}

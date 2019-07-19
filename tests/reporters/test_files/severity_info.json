@@ -1,0 +1,62 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            },
+            "file": "/home/developer/GSoC-Test/p.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 155745126435827215546230958841116563563,
+        "message": "C0111 - Missing module docstring",
+        "message_arguments": {},
+        "message_base": "C0111 - Missing module docstring",
+        "origin": "PyLintBear (C0111)",
+        "severity": 0
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            },
+            "file": "/home/developer/GSoC-Test/p.py",
+            "start": {
+              "column": 0,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 1
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 316371697265849303551714039831153440156,
+        "message": "C0103 - Constant name \"a\" doesn't conform to UPPER_CASE naming style",
+        "message_arguments": {},
+        "message_base": "C0103 - Constant name \"a\" doesn't conform to UPPER_CASE naming style",
+        "origin": "PyLintBear (C0103)",
+        "severity": 0
+      }
+    ]
+  }
+}

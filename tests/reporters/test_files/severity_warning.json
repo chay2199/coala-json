@@ -1,0 +1,64 @@
+{
+  "results": {
+    "cli": [
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": null,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 2
+            },
+            "file": "/home/developer/GSoC-Test/p.py",
+            "start": {
+              "column": null,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 2
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": {
+          "/home/developer/GSoC-Test/p.py": "--- \n+++ \n@@ -1,2 +1 @@\n def add:\n-\n"
+        },
+        "id": 330463132976009597309487377327084825404,
+        "message": "The code does not comply to PEP8.",
+        "message_arguments": {},
+        "message_base": "The code does not comply to PEP8.",
+        "origin": "PEP8Bear",
+        "severity": 1
+      },
+      {
+        "additional_info": "",
+        "affected_code": [
+          {
+            "end": {
+              "column": 1,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 2
+            },
+            "file": "/home/developer/GSoC-Test/p.py",
+            "start": {
+              "column": 1,
+              "file": "/home/developer/GSoC-Test/p.py",
+              "line": 2
+            }
+          }
+        ],
+        "aspect": "NoneType",
+        "confidence": 100,
+        "debug_msg": "",
+        "diffs": null,
+        "id": 236801519184403348539358765432686113105,
+        "message": "W391 blank line at end of file",
+        "message_arguments": {},
+        "message_base": "W391 blank line at end of file",
+        "origin": "PycodestyleBear (W391)",
+        "severity": 1
+      }
+    ]
+  }
+}

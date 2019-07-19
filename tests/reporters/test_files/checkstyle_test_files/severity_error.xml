@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="/home/developer/GSoC-Test/p.py">
+<error severity="error" line="1" column="0" message="E0001 - invalid syntax (&lt;string&gt;, line 1)" source=" E0001 PyLintBear">
+</error>
+</file>
+</checkstyle>

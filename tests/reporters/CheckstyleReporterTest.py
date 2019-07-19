@@ -51,6 +51,47 @@ class CheckstyleReporterTest(unittest.TestCase):
             checkstyle = CheckstyleReporter(loader, test_file)
             self.assertTrue(checkstyle_schema.is_valid(checkstyle.to_output()))
 
+    def test_severity_info(self):
+        checkstyle_schema = xmlschema.XMLSchema(get_path('checkstyle.xsd'))
+        with open(get_path('checkstyle_test_files/severity_info.xml')) as test:
+            self.assertTrue(checkstyle_schema.is_valid(test))
+
+        with open(get_path('severity_info.json')) as test_file:
+            loader = coalaJsonLoader()
+            check = CheckstyleReporter(loader, test_file)
+            with open(get_path('checkstyle_test_files/severity_info.xml'),
+                      'r') as check_file:
+                check_report = check_file.read()
+            self.assertEqual(check_report, check.to_output())
+
+    def test_severity_warning(self):
+        checkstyle_schema = xmlschema.XMLSchema(get_path('checkstyle.xsd'))
+        with open(get_path('checkstyle_test_files/severity_warning.xml')) as \
+                test:
+            self.assertTrue(checkstyle_schema.is_valid(test))
+
+        with open(get_path('severity_warning.json')) as test_file:
+            loader = coalaJsonLoader()
+            check = CheckstyleReporter(loader, test_file)
+            with open(get_path('checkstyle_test_files/severity_warning.xml'),
+                      'r') as check_file:
+                check_report = check_file.read()
+            self.assertEqual(check_report, check.to_output())
+
+    def test_severity_error(self):
+        checkstyle_schema = xmlschema.XMLSchema(get_path('checkstyle.xsd'))
+        with open(get_path('checkstyle_test_files/severity_error.xml')) as \
+                test:
+            self.assertTrue(checkstyle_schema.is_valid(test))
+
+        with open(get_path('severity_error.json')) as test_file:
+            loader = coalaJsonLoader()
+            check = CheckstyleReporter(loader, test_file)
+            with open(get_path('checkstyle_test_files/severity_error.xml'),
+                      'r') as check_file:
+                check_report = check_file.read()
+            self.assertEqual(check_report, check.to_output())
+
 
 if __name__ == '__main__':
     unittest.main()
