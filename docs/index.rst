@@ -14,6 +14,14 @@ The coala-json documentation!
    Welcome <self>
 
 .. toctree::
+   :caption: Test Formats
+   :hidden:
+
+   JUnit <test_formats/junit>
+   Checkstyle <test_formats/checkstyle>
+   TAP <test_formats/tap>
+
+.. toctree::
    :caption: Help
    :hidden:
 
@@ -53,78 +61,7 @@ AppVeyor:
 .. image:: _static/images/appveyor_tests.png
    :align: center
 
-Test Formats:
-=============
+Jenkins:
 
-JUnit
-~~~~~
-
-JUnit is the most popular test result report format which is used almost
-everywhere. You can export code review result data to a file in JUnit XML
-format easily. Jenkins, CircleCI, AppVeyor and many more analyse this
-format directly and can convert the report into useful artifacts. You might
-want to have a look at `Jenkins's JUnit graph <https://wiki.jenkins.io/display/JENKINS/JUnit+graph>`_.
-
-Sample JUnit file:
-~~~~~~~~~~~~~~~~~~
-
-::
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <testsuites>
-    <testsuite package="PyLintBear" timestamp="2019-06-10T18:26:01.801875" tests="9" errors="9" name="/home/developer/coala-json/coala_json/TestOutput.py">
-    <testcase name="PyLintBear C0111">
-    <error message="line: 1, Column: 1, C0111 - Missing module docstring"></error>
-    </testcase>
-    </testsuite>
-    </testsuites>
-
-How to upload JUnit to CircleCI:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To see test results as artifacts, you can add these to lines in your config
-file.
-
-``- store_test_results:``
-    ``path: test-results``
-
-Where the path key is an absolute or relative path to your working_directory
-containing subdirectories of JUnit XML test metadata files. Make sure that
-your path value is not a hidden folder (example: .my_hidden_directory would
-be an invalid format).
-After configuring CircleCI to collect your test metadata, tests that fail
-most often appear in a list on the details page of Insights in the
-application to identify flaky tests and isolate recurring issues.
-
-You can also visit here: https://circleci.com/docs/2.0/collect-test-data/
-
-How to upload JUnit to AppVeyor:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Test results endpoint URL has the following format:
-``https://ci.appveyor.com/api/testresults/{resultsType}/{jobId}``
-
-where:
-resultsType - test framework name to parse test results; supported parsers:
-
-- mstest
-- xunit
-- nunit
-- nunit3
-- junit.
-
-jobId - build job ID that is currently running; can be read from
-APPVEYOR_JOB_ID environment variable.
-Example build script in PowerShell that uploads Junit tests results in XML format:
-
-::
-
-    # upload results to AppVeyor
-    $wc = New-Object 'System.Net.WebClient'
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$(($env:APPVEYOR_JOB_ID)",
-                   (Resolve-Path .\junit-results.xml))
-
-You can also visit here:
-https://www.appveyor.com/docs/running-tests/#uploading-xml-test-results
-
-
+.. image:: _static/images/jenkins_tests.png
+   :align: center
