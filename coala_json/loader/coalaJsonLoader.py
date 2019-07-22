@@ -11,13 +11,13 @@ class coalaJsonLoader(JsonLoader):
     @staticmethod
     def sanitize(error_message):
         """
-        Remove escape characters from the error message
+        Change HTML characters to character entity reference so that
+        they are not mixed with XML tags
 
-        :param: string that contains escape characters
-        :return: string with replaced escape characters
+        :param: string that contains HTML characters
+        :return: string with character entity references
         """
-        mapping = {'&': '&amp;', '\"': '&quot;',
-                   '<': '&lt;', '>': '&gt;'}
+        mapping = {'\"': '&quot;', '<': '&lt;', '>': '&gt;'}
         for k, v in mapping.items():
             error_message = error_message.replace(k, v)
         return error_message

@@ -41,5 +41,5 @@ class CheckstyleReporter(ResultReporter):
                                                 error_code, source))
         head = ('<?xml version="1.0" encoding="utf-8"?>\n'
                 '<checkstyle version="4.3">\n')
-        output = head + report + '</checkstyle>'
+        output = head + report + '</checkstyle>\n'
         return output
