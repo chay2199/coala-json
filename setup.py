@@ -17,7 +17,7 @@ try:
 except (ValueError, UnicodeError, locale.Error):
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-VERSION = ''
+VERSION = '0.1.0'
 DESCRIPTION = (
     'A collection of coala json utilities'
 )
@@ -41,11 +41,11 @@ CLASSIFIERS = [
     'Intended Audience :: Science/Research',
     'Intended Audience :: Developers',
 
-    'License :: OSI Approved :: MIT License'
+    'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',
 
     'Programming Language :: Python :: Implementation :: CPython',
-    'Programming Language :: Python :: 3.4'
+    'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3 :: Only',
@@ -384,6 +384,11 @@ if __name__ == '__main__':
           keywords=KEYWORDS,
           data_files=data_files,
           long_description=long_description,
+          entry_points={
+              'console_scripts': [
+                  'coala-json=coala_json.reporters.cli.cli:main',
+              ],
+          },
           classifiers=CLASSIFIERS,
           cmdclass=SETUP_COMMANDS,
           )

@@ -25,14 +25,9 @@ def create_parser():
     return parser
 
 
-def main(arg):
-    """
-    main function to produce report
-    :param arg: use to specify explicit args when running pytest
-    :return: None
-    """
+def main():
     parser = create_parser()
-    args = parser.parse_args(arg)
+    args = parser.parse_args()
     produce_report(parser, args)
 
 
@@ -51,7 +46,7 @@ def produce_report(parser, args):
 
 def main_call():
     if __name__ == '__main__':
-        sys.exit(main(arg=None))
+        sys.exit(main())
 
 
 main_call()

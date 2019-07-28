@@ -1,4 +1,5 @@
 import os
+import sys
 import unittest
 from unittest import mock
 
@@ -65,12 +66,9 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(parsed.output, 'junit.xml')
 
     def test_main(self):
-        """
-        Test for main. Note that an empty list is passed to specify explicit
-        args while running pytest
-        """
+        sys.argv = ['']
         with self.assertRaisesRegex(SystemExit, '2') as cm:
-            cli.main([])
+            cli.main()
             self.assertEqual(cm.exception.code, 2)
 
     def test_produce_report(self):
