@@ -44,9 +44,5 @@ def produce_report(parser, args):
         report.write(output)
 
 
-def main_call():
-    if __name__ == '__main__':
-        sys.exit(main())
-
-
-main_call()
+if __name__ == '__main__':
+    sys.exit(main())
