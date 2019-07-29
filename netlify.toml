@@ -1,3 +1,3 @@
 [build]
   publish = "docs/_build/html"
-  command = "virtualenv -p python3 coala-venv && source coala-venv/bin/activate && cd docs && pip install -r requirements.txt && export PYTHONPATH=$(pwd) && make html"
+  command = "virtualenv -p python3 coala-venv && source coala-venv/bin/activate && export PYTHONPATH=$(pwd) && cd docs && pip install -r requirements.txt && make html"
