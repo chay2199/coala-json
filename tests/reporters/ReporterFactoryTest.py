@@ -30,6 +30,11 @@ class ReporterFactoryTest(unittest.TestCase):
         check = '<coala_json.reporters.TapReporter.TapReporter'
         self.assertEqual(check, str(factory.get_reporter()).split(" ")[0])
 
+        args = self.parser.parse_args(['--table'])
+        factory = ReporterFactory(self.loader, self.parser, '', args)
+        check = '<coala_json.reporters.HtmlReporter.HtmlReporter'
+        self.assertEqual(check, str(factory.get_reporter()).split(" ")[0])
+
 
 if __name__ == '__main__':
     unittest.main()
