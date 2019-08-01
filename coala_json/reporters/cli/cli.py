@@ -23,8 +23,10 @@ def create_parser():
                         help='mode in which coala will produce a HTML table'
                              ' report')
     parser.add_argument('-f', '--input', help='path of the json input file')
-    parser.add_argument('-o', '--output', default='test_report.xml',
-                        help='path of output report file')
+    parser.add_argument('-o', '--output', help='path of output report file. '
+                                               'If nothing is specified then '
+                                               'coala-json will print the '
+                                               'output to the stdout')
     return parser
 
 
@@ -43,8 +45,11 @@ def produce_report(parser, args):
         reporter = factory.get_reporter()
         output = reporter.to_output()
 
-    with open(args.output, 'w+') as report:
-        report.write(output)
+    if args.output:
+        with open(args.output, 'w+') as report:
+            report.write(output)
+    else:
+        sys.stdout.write(output)
 
 
 if __name__ == '__main__':
