@@ -1,12 +1,9 @@
-import os
-import unittest
+import os, unittest
 
 import xmlschema
 
 from coala_json.reporters.JunitReporter import JunitReporter
 from coala_json.loader.coalaJsonLoader import coalaJsonLoader
-
-
 def get_path(filename):
     file_path = os.path.join(os.path.dirname(__file__),
                              'test_files/',

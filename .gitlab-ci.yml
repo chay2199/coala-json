@@ -46,12 +46,13 @@ tests:3.7:
 lint:
   image: python:3.6
   before_script:
-    - export PYTHONPATH="$PYTHONPATH:."
     - $PYTHON -m pip install setuptools==21 pip==9.0.1
     - pip install 'git+https://github.com/coala/coala#egg=coala'
     - pip install 'git+https://github.com/coala/coala-bears#egg=coala-bears'
   script:
     - coala --json -o output.json
+  after_script:
+    - export PYTHONPATH="$PYTHONPATH:."
     - python $PWD/coala_json/reporters/cli/cli.py --junit -f output.json -o junit_report.xml
   artifacts:
     reports:
