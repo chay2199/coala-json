@@ -28,15 +28,15 @@ class JunitReporter(ResultReporter):
                 affected_col = self.loader.extract_affected_column(problem)
                 testsuite_name = self.loader.extract_file(problem)
                 testsuite_package = self.loader.extract_origin(problem)
-                errors = self.loader.extract_errors(problems)
+                failures = self.loader.extract_errors(problems)
                 testcase_name = self.loader.extract_error_code(message)
                 error_message = "line: {}, Column: {}, {}".format(
                     affected_line, affected_col, message)
                 junit += ('<testsuite package="{}" timestamp="{}" tests="{}" '
-                          'errors="{}" name="{}">\n<testcase name="{}{}">\n'
-                          '<error message="{}"></error>\n</testcase>\n'
+                          'failures="{}" name="{}">\n<testcase name="{}{}">\n'
+                          '<failure message="{}"></failure>\n</testcase>\n'
                           '</testsuite>\n'.format(testsuite_package, timestamp,
-                                                  errors, errors,
+                                                  failures, failures,
                                                   testsuite_name,
                                                   testsuite_package,
                                                   testcase_name,
@@ -47,7 +47,7 @@ class JunitReporter(ResultReporter):
         else:
             output = ('<?xml version="1.0" encoding="utf-8"?>\n<testsuites>\n'
                       '<testsuite timestamp="{}" '
-                      'tests="1" errors="0" name="coala">\n'
+                      'tests="1" failures="0" name="coala">\n'
                       '<testcase time="0" name="None"></testcase>\n'
                       '</testsuite>\n'
                       '</testsuites>'.format(timestamp))
