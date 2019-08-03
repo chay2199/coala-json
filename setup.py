@@ -17,7 +17,7 @@ try:
 except (ValueError, UnicodeError, locale.Error):
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 DESCRIPTION = (
     'A collection of coala json utilities'
 )

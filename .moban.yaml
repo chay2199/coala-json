@@ -4,9 +4,9 @@ name: coala-json
 description: A collection of coala json utilities
 url: https://gitlab.com/coala/coala-json
 license: MIT
-build_version: 0.1.0
-current_version: 0.1.0
-version: 0.1.0
+build_version: 0.1.1
+current_version: 0.1.1
+version: 0.1.1
 package_module: coala_json
 docs_dir: false
 test_file_glob: 'test_*.py *Test.py'
