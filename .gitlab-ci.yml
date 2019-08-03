@@ -55,6 +55,7 @@ lint:
     - export PYTHONPATH="$PYTHONPATH:."
     - python $PWD/coala_json/reporters/cli/cli.py --junit -f output.json -o junit_report.xml
   artifacts:
+    when: always
     reports:
       junit: junit_report.xml
 

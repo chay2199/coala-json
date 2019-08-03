@@ -40,10 +40,10 @@ jobs:
           when: always
           command: python -m codecov
       - store_test_results:
-          path: ./
+          path: ./*.xml
           destination: reports/junit
       - store_artifacts:
-          path: ./
+          path: ./*.xml
           destination: reports/junit
 
   python-3.5:

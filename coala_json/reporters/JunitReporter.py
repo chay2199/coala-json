@@ -33,8 +33,8 @@ class JunitReporter(ResultReporter):
                 error_message = "line: {}, Column: {}, {}".format(
                     affected_line, affected_col, message)
                 junit += ('<testsuite package="{}" timestamp="{}" tests="{}" '
-                          'errors="{}" name="{}">\n<testcase name="{}{}">\n'
-                          '<error message="{}"></error>\n</testcase>\n'
+                          'failures="{}" name="{}">\n<testcase name="{}{}">\n'
+                          '<failure message="{}"></failure>\n</testcase>\n'
                           '</testsuite>\n'.format(testsuite_package, timestamp,
                                                   errors, errors,
                                                   testsuite_name,
@@ -47,7 +47,7 @@ class JunitReporter(ResultReporter):
         else:
             output = ('<?xml version="1.0" encoding="utf-8"?>\n<testsuites>\n'
                       '<testsuite timestamp="{}" '
-                      'tests="1" errors="0" name="coala">\n'
+                      'tests="1" failures="0" name="coala">\n'
                       '<testcase time="0" name="None"></testcase>\n'
                       '</testsuite>\n'
                       '</testsuites>'.format(timestamp))
