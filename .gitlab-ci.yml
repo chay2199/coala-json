@@ -11,8 +11,11 @@ cache:
     - $CI_PROJECT_PATH/.cache/pip
 
 
+# git for git+ requirements
+# gcc and musl-dev for compiled modules, as wheels are not possible on Alpine
 .common_deps_script: &common_deps_script |
-  apk add --no-cache git  # for git+ requirements
+  apk add --no-cache git gcc musl-dev
+  $PYTHON -m pip install --constraint test-requirements.txt moban
   $PYTHON -m pip install setuptools==21 pip==9.0.1
   pip install -r test-requirements.txt
 
@@ -46,20 +49,25 @@ tests:3.7:
 lint:
   image: python:3.6
   before_script:
-    - export PYTHONPATH="$PYTHONPATH:."
     - $PYTHON -m pip install setuptools==21 pip==9.0.1
     - pip install 'git+https://github.com/coala/coala#egg=coala'
     - pip install 'git+https://github.com/coala/coala-bears#egg=coala-bears'
+    - pip install coala-json
   script:
-    - coala --json -o output.json
-    - python $PWD/coala_json/reporters/cli/cli.py --junit -f output.json -o junit_report.xml
+    - mkdir reports
+    - coala --json -o reports/output.json
+  after_script:
+    - coala-json --junit -f reports/output.json -o reports/junit_report.xml
   artifacts:
+    when: always
+    paths:
+      - ./reports/
     reports:
-      junit: junit_report.xml
+      junit: ./reports/junit_report.xml
 
 moban:
   image: python:3.6
   before_script:
-    - pip install moban~=0.3.3
+    - pip install --constraint test-requirements.txt moban
   script:
     - .ci/check_moban.sh

@@ -25,6 +25,7 @@ targets:
   - .gitignore: coala-gitignore.jj2
   - setup.py: coala-setup.py.jj2
   - setup.cfg: setup.cfg.jj2
+  - .gitlab-ci.yml: ci/gitlab-ci.yml.jj2
   - test-requirements.txt: core-test-requirements.txt.jj2
   - .ci/check_moban.sh: ci/check_moban.sh
   - .ci/run_with_env.cmd: run_with_env.cmd
