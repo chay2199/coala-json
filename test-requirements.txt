@@ -32,3 +32,4 @@ xmlschema~=1.0.11
 coala~=0.11.0
 coala-bears
 ruamel.yaml==0.15.94
+requests
