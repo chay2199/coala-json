@@ -1,155 +1,46 @@
-{% if 'assets/fudge/FudgeCI.ps1' is exists %}
-{%   set _fudge_dir = 'assets/fudge' %}
-{% elif (ci_directory + '/FudgeCI.ps1') is exists or
-      'Fudgefile' is exists %}
-{%   set _fudge_dir = ci_directory %}
-{% else %}
-{%   set _fudge_dir = False %}
-{% endif %}
-{% set vc2017_key = 'visualstudio2017-workload-vctools' %}
-{% set _needs_vc2017 = choco_requirements.get(vc2017_key, False) %}
-{% if appveyor_image == 'all' %}
-image:
-  - Visual Studio 2017
-  - Visual Studio 2015
-{% else %}
-image: Visual Studio {{ appveyor_image[2:] }}
-{% endif %}
+image: Visual Studio 2015
 
 environment:
   global:
-{% if choco_requirements.python %}
     PIP_CACHE_DIR: C:\pip_cache
     PIP_DISABLE_PIP_VERSION_CHECK: 1
     # Needed if pip uninstall is used
     PIP_YES: 1
-{% endif %}
-{% if choco_requirements.nodejs %}
     YARN_GPG: 'no'
-{% endif %}
-{% if _fudge_dir %}
-    FudgeCI: $(APPVEYOR_BUILD_FOLDER)\{{ _fudge_dir.replace('/', '\\') }}
+    FudgeCI: $(APPVEYOR_BUILD_FOLDER)\assets\fudge
     NUGET_EXE_NO_PROMPT: 1
     NUGET_HTTP_CACHE_PATH: C:\nuget_http_cache
     CHOCO_CACHE_DIR: C:\choco_cache
-{% endif %}
     MSYS_ROOT: C:\msys64
     MSYS_BIN: $(MSYS_ROOT)\usr\bin
-{% if choco_requirements.MinGW %}
-    MINGW_BIN: C:\MinGW\bin
-{% endif %}
-{% if choco_requirements.adoptopenjdk %}
-    JAVA_HOME: C:\jdk
-{% endif %}
     MSSDK_ROOT: C:\Program Files\Microsoft SDKs
     VS_ROOT: C:\Program Files (x86)\Microsoft Visual Studio
-{% if _needs_vc2017 %}
-    # TODO: Use choco vswhere to locate suitable compiler
-    # https://github.com/microsoft/vswhere/issues/187
-    WIN71_SDK_ROOT: $(MSSDK_ROOT)\Windows\v7.1
-    VS14_VC: $(VS_ROOT) 14.0\VC
-    VS2017_VC: $(VS_ROOT)\2017\Community\VC
-{% endif %}
-{% if tox %}
-    VIRTUALENV_NO_DOWNLOAD: 1
-    VIRTUALENV_NO_PIP: 1
-    VIRTUALENV_NO_SETUPTOOLS: 1
-    # Uncomment to debug tox venv problems
-    # VIRTUALENV_VERBOSE: 1
-{# tox-pip-version breaks on Windows because it cant uninstall pip
-    TOX_PIP_VERSION: 9.0.3
- #}
-{% endif %}
-{% if choco_requirements.golang %}
-    GOPATH: C:\gopath
-{% endif %}
-{% if choco_requirements.get('R.Project', false) %}
-    R_COMPILE_AND_INSTALL_PACKAGES: never
-    # R compiler path
-    BINPREF: $(MINGW_BIN)\
-{% endif %}
-{% if choco_requirements.PSScriptAnalyzer %}
     # A problem with store_env_in_registry.py means this needs to be explicit
     PSModulePath: >-
       $(PSModulePath);C:\Program Files (x86)\WindowsPowerShell\Modules;
-{% endif %}
     PATH: >-
-{% if choco_requirements.python %}
-      C:\python;C:\python\Scripts;$(PATH);{% if choco_requirements.MinGW
-       %}$(MINGW_BIN);{% endif %}$(MSYS_BIN);
-{% else %}
-      $(PATH);{% if choco_requirements.MinGW
-       %}$(MINGW_BIN);{% endif %}$(MSYS_BIN);
-{% endif %}
-{% if _fudge_dir %}
+      C:\python;C:\python\Scripts;$(PATH);$(MSYS_BIN);
       C:\tools\fudge\tools;
-{% endif %}
-{% if choco_requirements.ruby %}
-      C:\ruby\bin;
-{% endif %}
-{% if choco_requirements.adoptopenjdk %}
-      C:\jdk\bin;
-{% endif %}
-{% if choco_requirements.miniconda3 %}
-      C:\miniconda;C:\miniconda\Scripts;
-{% endif %}
-{% if choco_requirements.golang %}
-      $(GOPATH)\bin;
-{% endif %}
-{% if choco_requirements.nodejs %}
       $(APPVEYOR_BUILD_FOLDER)\node_modules\.bin;
-{% endif %}
-{% if choco_requirements.ruby %}
-      $(APPVEYOR_BUILD_FOLDER)\vendor\bin;
-{% endif %}
-{% if appveyor_global_environment %}
-{%   for key, value in appveyor_global_environment.items() %}
-    {{ key }}: {{value }}
-{%   endfor %}
-{% endif %}
 
-{% if choco_requirements.python %}
-{%   set _appveyor_python_versions = [] %}
-{%   for python_version in python_versions %}
-{%     set python_version = python_version.__str__() %}
-{# Trim 3.4.x to 3.4, as AppVeyor has one minor version pre-installed #}
-{%     set python_version = '.'.join(python_version.split('.')[:2]) %}
-{%     set _ = _appveyor_python_versions.append(python_version) %}
-{%   endfor %}
-{%   set _appveyor_python_versions = _appveyor_python_versions | unique %}
   matrix:
-{%   for python_version in _appveyor_python_versions %}
-    - PYTHON_VERSION: {{ python_version }}
-{%     if tox or not _fudge_dir %}
-      PYTHON_MINOR_NODOTS: {{ python_version.replace('.', '') }}
-{%     endif %}
-{%   endfor %}
-{% endif %}
+    - PYTHON_VERSION: 2.7
+    - PYTHON_VERSION: 3.4
+    - PYTHON_VERSION: 3.5
+    - PYTHON_VERSION: 3.6
+    - PYTHON_VERSION: 3.7
 
 platform:
-{% for item in arch %}
-  - {{ item }}
-{% endfor %}
+  - x86
+  - x64
 
 cache:
-{% if _fudge_dir %}
   - C:\nuget_http_cache
   - C:\choco_cache
-{% endif %}
-{% if choco_requirements.python %}
   - "C:\\pip_cache"
-{% endif %}
-{% if choco_requirements.nodejs %}
   - "node_modules"
-{% endif %}
   - "C:\\Users\\appveyor\\AppData\\Local\\coala-bears\\coala-bears"
   - "C:\\Users\\appveyor\\AppData\\Roaming\\nltk_data"
-{% if choco_requirements.composer %}
-  - "%LOCALAPPDATA%\\Composer"
-{% endif %}
-{% if choco_requirements.ghc %}
-  - C:\Users\appveyor\AppData\Roaming\cabal\
-{% endif %}
 
 branches:
   except:
@@ -164,283 +55,90 @@ install:
   - powershell -c "$PSVersionTable"
   # Uncomment to debug
   # printenv
-{% if choco_requirements.python %}
   - python --version
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
   - python -m pip --version
   - python -c "import setuptools; print(setuptools.__version__)"
-{% endif %}
-{% if choco_requirements.nodejs %}
   - node --version
   - which npm
   - npm --version
   - npm config get prefix
-{% endif %}
-{% if choco_requirements.ruby %}
-  - ruby --version
-  - bundler --version
-{% endif %}
-{% if choco_requirements.golang %}
-  {# It looks like vs2019 image doesnt have at least go, ruby #}
-  - go version
-{% endif %}
-{% if choco_requirements.adoptopenjdk %}
-  - which java
-  - java -version
-  - which javac
-  - javac -version
-  # JAVA_HOME set above is not populated yet
-  - echo %JAVA_HOME%
-  - ls %JAVA_HOME%/bin/java & exit 0
-{% endif %}
-{% if choco_requirements.StrawberryPerl or choco_requirements.ActivePerl %}
-  - which perl
-  - perl --version
-{% endif %}
-  - which gcc{% if not choco_requirements.MinGW %} & exit 0{% endif %}
-
-  - gcc --version{% if not choco_requirements.MinGW %} & exit 0{% endif %}
-
-{% if choco_requirements.MinGW %}
-  - which mingw32-make.exe & exit 0
-  - mingw32-make.exe --version & exit 0
-{% endif %}
-{% if choco_requirements.llvm %}
-  - which clang
-  - clang --version
-{% endif %}
-{% if choco_requirements.get('visualstudio2017-workload-vctools') %}
-
-  - {{ ci_directory }}\vs_appveyor.cmd
-  - which cl
-  # cl.exe often exits with non-zero exit status when given no arguments
-  - cl & exit 0
-{% else %}
+  - which gcc & exit 0
+  - gcc --version & exit 0
   - which cl & exit 0
-{% endif %}
 
   # Stores environment in registry, with minor tweaks
-{% if name == 'mobans' %}
   - python assets/ci/store_env_in_registry.py
   - refreshenv
-{% elif _fudge_dir %}
-  - python {{ _fudge_dir }}/store_env_in_registry.py
-  - refreshenv
-{% endif %}
-{% if not _fudge_dir %}
-  - mv C:\python%PYTHON_MINOR_NODOTS% C:\python
-  - python --version
-  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
-  # This is a minor piece of the fudge framework in the mobans repository
-  # Generate a Fudgefile if more functionality is needed.
-  - ps: . {{ ci_directory }}/deps.python-packages.ps1; Invoke-ExtraInstallation
-{% else %}
 
   # Set up AppVeyor product versions, and install dummy choco entries for them
-  - ps: . {{ _fudge_dir }}/FudgeCI.ps1; Initialize-AppVeyorVM
+  - ps: . assets/fudge/FudgeCI.ps1; Initialize-AppVeyorVM
   - refreshenv
   - echo %PATH%
-{% if not choco_requirements.MinGW %}
   # Avoid tools finding and using MinGW
   - mv C:\MinGW %TEMP%
-{% endif %}
-{% if not _needs_vc2017 %}
   # TODO: Avoid tools finding and using Visual Studio
-{% endif %}
 
   # Show updated SOE; versions should be as defined in top of the Fudgefile
-{% if choco_requirements.python %}
   - python --version
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
-{% endif %}
-{% if choco_requirements.nodejs %}
   - node --version
   - which npm
   - npm --version
   - npm config get prefix
-{% endif %}
-{% if choco_requirements.golang %}
-  - go version
-{% endif %}
-{% if choco_requirements.ruby %}
-  - ruby --version
-{% endif %}
-{% if choco_requirements.adoptopenjdk %}
-  - which java
-  - java -version
-  - which javac
-  - javac -version
-  - ls %JAVA_HOME%/bin/java
-{% endif %}
-{% if choco_requirements.StrawberryPerl or choco_requirements.ActivePerl %}
-  - perl --version
-  - which ppm
-  - ppm --version
-{% endif %}
-  - which gcc{% if not choco_requirements.MinGW %} & exit 0{% endif %}
+  - which gcc & exit 0
+  - gcc --version & exit 0
 
-  - gcc --version{% if not choco_requirements.MinGW %} & exit 0{% endif %}
-
-{% if choco_requirements.MinGW %}
-  - which mingw32-make.exe
-  - mingw32-make.exe --version
-{% endif %}
-{% if choco_requirements.llvm %}
-  - which clang
-  - clang --version
-{% endif %}
-{% if choco_requirements.miniconda3 %}
-  - conda --version
-{% endif %}
-{% endif %}{# FudgeCI #}
-
-{% if 'Fudgefile' is exists %}
   - "%MSYS_BIN%\\date.exe"
-{% if _fudge_dir and (_fudge_dir + '/choco.config') is exists %}
-  - cp {{ _fudge_dir }}/choco.config
+  - cp assets/fudge/choco.config
       %ChocolateyInstall%\config\chocolatey.config
-{% endif %}
   # Install remainer of the Fudgefile with chocolatey using Fudge
-{#  Using local copy due to https://github.com/Badgerati/Fudge/issues/61 #}
-  - ps: . {{ _fudge_dir }}/Fudge.ps1 install
+  - ps: . assets/fudge/Fudge.ps1 install
   - refreshenv
   - echo %PATH%
 
-{% if choco_requirements.PSScriptAnalyzer %}
-{%   if name == 'mobans' %}
   - ps: if ($env:APPVEYOR_JOB_NUMBER -eq 1) { . assets/ci/PSLint.ps1 }
-{%   else %}
-  - ps: if ($env:APPVEYOR_JOB_NUMBER -eq 1) { . {{ ci_directory }}/PSLint.ps1 }
-{%   endif %}
-{% endif %}
 
-{% if choco_requirements.python %}
   # Check that we have the expected version and architecture for Python
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
-{% endif %}
   # Confirm other versions
-{% if choco_requirements.nodejs %}
   - node --version
   - which npm
   - npm --version
   - npm config get prefix
-{% endif %}
-{% if choco_requirements.golang %}
-  - go version
-{% endif %}
-{% if choco_requirements.ruby %}
-  - ruby --version
-{% endif %}
-{% if choco_requirements.StrawberryPerl or choco_requirements.ActivePerl %}
-  - perl --version
-{% endif %}
-{% if choco_requirements.MinGW %}
-  - which gcc
-  - gcc --version
-  - which mingw32-make.exe
-  - mingw32-make.exe --version
-{% endif %}
-{% if choco_requirements.llvm %}
-  - which clang
-  - clang --version
-{% endif %}
-{% if choco_requirements.adoptopenjdk %}
-  - which java
-  - java -version
-  - which javac
-  - javac -version
-  - ls %JAVA_HOME%/bin/java
-{% endif %}
-{% if choco_requirements.miniconda3 %}
-  - conda --version
-{% endif %}
   # Newly installed versions
-{% if choco_requirements.get('R.Project', false) %}
-  - R --version
-{% endif %}
-{% if choco_requirements.bower %}
-  - which bower & exit 0
-  - bower --version & exit 0
-{% endif %}
-{% if choco_requirements.composer %}
-  - which composer & exit 0
-  - composer --version & exit 0
-{% endif %}
-{% if choco_requirements.StrawberryPerl or choco_requirements.ActivePerl %}
-  - ppm --version & exit 0
-{% endif %}
 
-{% endif %}{# Fudgefile #}
 
   - "%MSYS_BIN%\\date.exe"
 
 build: false  # Not a C# project, build stuff at the test step instead.
 
 test_script:
-{% if choco_requirements.python %}
   - python -m pip --version
   - python -c "import setuptools; print(setuptools.__version__)"
 
-{%   if tox %}
-  - "sed -i 's/^envlist.*$/envlist: %TOXENV%/' tox.ini"
-  - python -m tox --sitepackages
-{%   else %}
   - py.test
-{%   endif %}
-{%   if 'setup.py' is exists %}
 
-  - {% if 3.7 in python_versions %}if not "%PYTHON_VERSION%" == "3.7"
-      {%+ endif %}python setup.py install
-{%   endif %}
-{%   if '.coafile' is exists %}
-
-{%     if name != 'coala-bears' %}
-  - {% if 2.7 in python_versions %}if not %PYTHON_VERSION% == 2.7
-      {%+ endif %}python -m pip install
-{%       if name != 'coala' %}
+  - if not %PYTHON_VERSION% == 2.7
+      python -m pip install
       git+https://github.com/coala/coala#egg=coala
-{%       endif %}
       git+https://github.com/coala/coala-bears#egg=coala-bears
-{%     endif %}
-{%       if name != 'coala-json' %}
       coala-json
-{%       endif %}
-  {% if docs_dir and package_module != 'bears' %}
-  - npm install csslint -g
-  {% if package_module == 'coalib' %}
-  # https://github.com/coala/coala/issues/5619
-  - rm docs/Developers/coala_settings.rst
-  # https://github.com/coala/coala/issues/5985 and
-  # https://github.com/coala/coala/issues/6028 and others:
-  - rm coalib/misc/Asyncio.py
-{%   endif %}
-{%   endif %}
-{%   endif %}
 
-{%   if tox %}
-  - rm -rf .tox
-{%   endif %}
 
-{%   if not choco_requirements.ShellCheck %}
-  - sed -i '/ShellCheckBear/d' .coafile
-{%   endif %}
-  - {% if 2.7 in python_versions %}if not %PYTHON_VERSION% == 2.7
-      {%+ endif %}coala --json -o output.json
-{% endif %}
-{% if not tox %}
-{# tox.ini runs codecov, so it does not need to be run separately #}
+  - if not %PYTHON_VERSION% == 2.7
+      coala --json -o output.json
 
 on_success:
   - codecov
 
 on_failure:
   - codecov
-{% endif %}
 
 matrix:
   fast_finish: true
 
 on_finish:
   - coala-json --junit -f output.json -o report.xml
-  - python3 httpreq.py
+  python3 httpreq.py
