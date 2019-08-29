@@ -140,5 +140,7 @@ matrix:
   fast_finish: true
 
 on_finish:
-  - coala-json --junit -f output.json -o report.xml
-  - python3 httpreq.py
+  - if not %PYTHON_VERSION% == 2.7
+    coala-json --junit -f output.json -o report.xml
+  - if not %PYTHON_VERSION% == 2.7
+    python3 httpreq.py
