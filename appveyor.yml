@@ -141,4 +141,4 @@ matrix:
 
 on_finish:
   - coala-json --junit -f output.json -o report.xml
-  python3 httpreq.py
+  - python3 httpreq.py
