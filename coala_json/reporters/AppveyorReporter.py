@@ -9,6 +9,7 @@ class AppveyorReporter(ResultReporter):
     """
     def to_output(self):
         appveyor_id = self.coala_json
+        print(appveyor_id)
         with open('C:/projects/coala-json/report.xml', 'rb') as f:
             r = requests.post('https://ci.appveyor.com/api/testresults/'
                               'junit/{}'.format(appveyor_id),
