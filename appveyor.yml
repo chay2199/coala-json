@@ -61,4 +61,4 @@ on_finish:
   - if not %PYTHON_VERSION% == 2.7
     coala-json --junit -f output.json -o report.xml
   - if not %PYTHON_VERSION% == 2.7
-    %CMD_IN_ENV% python coala-json_upload.py $($env:APPVEYOR_JOB_ID)
+    %CMD_IN_ENV% python coala-json_upload.py %APPVEYOR_JOB_ID%
