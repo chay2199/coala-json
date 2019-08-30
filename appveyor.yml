@@ -60,14 +60,12 @@ test_script:
 on_finish:
   - if not %PYTHON_VERSION% == 2.7
     coala-json --junit -f output.json -o report.xml
-  - ps:
-        if(-Not (%PYTHON_VERSION% == 2.7)){
-          $wc = New-Object 'System.Net.WebClient'
-          $url = "https://ci.appveyor.com/api/testresults/junit/"
-                 "$($env:APPVEYOR_JOB_ID)"
-                 foreach ($file in Get-ChildItem -Path 'C:\projects\*.xml' -Recurse) {
-                         $wc.UploadFile($url, (Resolve-Path $file))
-                       }
-        }
-
-
+  - ps: |
+      if(-Not (%PYTHON_VERSION% == 2.7)){
+        $wc = New-Object 'System.Net.WebClient'
+        $url = "https://ci.appveyor.com/api/testresults/junit/"
+               "$($env:APPVEYOR_JOB_ID)"
+               foreach ($file in Get-ChildItem -Path 'C:\projects\*.xml' -Recurse) {
+                       $wc.UploadFile($url, (Resolve-Path $file))
+                     }
+      }
