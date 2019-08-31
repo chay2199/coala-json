@@ -10,7 +10,7 @@ class AppveyorReporter(ResultReporter):
     """
 
     def to_output(self):
-        file_to_upload = self.coala_json
+        file_to_upload = self.coala_json.split(' ')[0]
         appveyor_job_id = os.environ['APPVEYOR_JOB_ID']
         with open('C:/projects/coala-json/{}'.format(file_to_upload),
                   'rb') as f:
