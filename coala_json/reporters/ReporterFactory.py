@@ -2,7 +2,6 @@ from coala_json.reporters.CheckstyleReporter import CheckstyleReporter
 from coala_json.reporters.HtmlReporter import HtmlReporter
 from coala_json.reporters.JunitReporter import JunitReporter
 from coala_json.reporters.TapReporter import TapReporter
-from coala_json.reporters.AppveyorReporter import AppveyorReporter
 
 
 class ReporterFactory:
@@ -31,9 +30,6 @@ class ReporterFactory:
 
         elif self.args.table:
             return HtmlReporter(self.loader, self.input_file)
-
-        elif self.args.appveyor:
-            return AppveyorReporter(self.loader, self.input_file)
 
         else:
             return self.parser.error("Please check if a single output mode is"

@@ -4,6 +4,7 @@ import sys
 
 from coala_json.reporters.ReporterFactory import ReporterFactory
 from coala_json.loader.coalaJsonLoader import coalaJsonLoader
+from coala_json.reporters.AppveyorReporter import AppveyorReporter
 
 
 def get_path(filepath):
@@ -44,8 +45,7 @@ def produce_report(parser, args):
         parser.error("Please specify a 'coala-json' input file")
 
     if args.appveyor:
-        factory = ReporterFactory(coalaJsonLoader(), parser, args.input, args)
-        reporter = factory.get_reporter()
+        reporter = AppveyorReporter(coalaJsonLoader(), args.input)
         output = reporter.to_output()
     else:
         with open(get_path(args.input)) as input_file:
