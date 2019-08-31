@@ -11,9 +11,10 @@ class AppveyorReporter(ResultReporter):
 
     def to_output(self):
         file_to_upload = self.coala_json.split(' ')[0]
-        appveyor_job_id = os.environ['APPVEYOR_JOB_ID']
-        with open('C:/projects/coala-json/{}'.format(file_to_upload),
-                  'rb') as f:
+        appveyor_job_id = os.getenv('APPVEYOR_JOB_ID')
+        appveyor_build_folder = os.getenv('APPVEYOR_BUILD_FOLDER')
+        with open('C:/projects/{}/{}'.format(appveyor_build_folder,
+                                             file_to_upload), 'rb') as f:
             r = requests.post('https://ci.appveyor.com/api/testresults/'
                               'junit/{}'.format(appveyor_job_id),
                               files={'report.xml': f})
