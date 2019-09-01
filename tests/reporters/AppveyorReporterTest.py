@@ -23,6 +23,10 @@ class AppveyorReporterTest(unittest.TestCase):
     @unittest.skipUnless(os.getenv('APPVEYOR') == 'True', 'Skip unless AppVeyor'
                                                           ' CI test')
     def test_file(self):
+        os.system('coala --json > empty.json')
+        os.system('coala-json --junit -f {} -o test.xml'.format('empty.json'))
         loader = coalaJsonLoader()
-        appveyor = AppveyorReporter(loader, 'report.xml')
-        self.assertEqual(appveyor.to_output(), 400)
+        appveyor = AppveyorReporter(loader, 'test.xml')
+        self.assertEqual(appveyor.to_output(),
+                         'https://ci.appveyor.com/api/testresults/junit/{}'
+                         .format(os.getenv('APPVEYOR_JOB_ID')))
