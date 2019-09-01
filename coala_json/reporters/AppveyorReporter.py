@@ -14,7 +14,7 @@ class AppveyorReporter(ResultReporter):
         appveyor_job_id = os.getenv('APPVEYOR_JOB_ID')
         appveyor_build_folder = os.getenv('APPVEYOR_BUILD_FOLDER')
         try:
-            with open('{}/{}'.format(appveyor_build_folder, file_to_upload),  # pragma: no cover
+            with open('{}/{}'.format(appveyor_build_folder, file_to_upload),
                       'rb') as f:
                 r = requests.post('https://ci.appveyor.com/api/testresults/'
                                   'junit/{}'.format(appveyor_job_id),

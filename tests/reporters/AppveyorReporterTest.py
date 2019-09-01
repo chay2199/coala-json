@@ -20,8 +20,6 @@ class AppveyorReporterTest(unittest.TestCase):
         self.assertEqual(appveyor.to_output(),
                          'Permission denied or no such file or directory')
 
-    @unittest.skipUnless(os.getenv('APPVEYOR') == 'True', 'Skip unless AppVeyor'
-                                                          ' CI test')
     def test_file(self):
         os.system('coala --json > empty.json')
         os.system('coala-json --junit -f {} -o test.xml'.format('empty.json'))
