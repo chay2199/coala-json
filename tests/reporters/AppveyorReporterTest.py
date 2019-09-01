@@ -25,4 +25,4 @@ class AppveyorReporterTest(unittest.TestCase):
         os.system('coala-json --junit -f {} -o test.xml'.format('empty.json'))
         loader = coalaJsonLoader()
         appveyor = AppveyorReporter(loader, 'test.xml')
-        self.assertEqual(appveyor.to_output(), 400)
+        self.assertEqual(appveyor.to_output(), 204)
