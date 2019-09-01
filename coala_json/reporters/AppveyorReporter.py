@@ -9,7 +9,7 @@ class AppveyorReporter(ResultReporter):
     Contain methods to report test results to appveyor
     """
 
-    def to_output(self):
+    def to_output(self):  # pragma: no cover
         file_to_upload = self.coala_json.split(' ')[0]
         appveyor_job_id = os.getenv('APPVEYOR_JOB_ID')
         appveyor_build_folder = os.getenv('APPVEYOR_BUILD_FOLDER')
