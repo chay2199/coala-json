@@ -25,6 +25,4 @@ class AppveyorReporterTest(unittest.TestCase):
         os.system('coala-json --junit -f {} -o test.xml'.format('empty.json'))
         loader = coalaJsonLoader()
         appveyor = AppveyorReporter(loader, 'test.xml')
-        self.assertEqual(appveyor.to_output(),
-                         'https://ci.appveyor.com/api/testresults/junit/{}'
-                         .format(os.getenv('APPVEYOR_JOB_ID')))
+        self.assertEqual(appveyor.to_output(), 400)
