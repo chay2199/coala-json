@@ -19,6 +19,6 @@ class AppveyorReporter(ResultReporter):
                 r = requests.post('https://ci.appveyor.com/api/testresults/'
                                   'junit/{}'.format(appveyor_job_id),
                                   files={'{}'.format(file_to_upload): f})
-            return r.reason
+            return r.request
         except (FileNotFoundError, TypeError):
             return 'Permission denied or no such file or directory'

@@ -24,5 +24,5 @@ class AppveyorReporterTest(unittest.TestCase):
                                                           ' CI test')
     def test_file(self):
         loader = coalaJsonLoader()
-        appveyor = AppveyorReporter(loader, get_path('severity_info.xml'))
+        appveyor = AppveyorReporter(loader, 'report.xml')
         self.assertEqual(appveyor.to_output(), 400)
