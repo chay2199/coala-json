@@ -7,10 +7,9 @@ from coala_json.reporters.AppveyorReporter import AppveyorReporter
 from coala_json.loader.coalaJsonLoader import coalaJsonLoader
 
 
-def get_path(filename):
-    file_path = os.path.join(os.path.dirname(__file__),
-                             filename)
-    return file_path
+def get_path():
+    path = os.path.join(os.path.dirname(__file__))
+    return path
 
 
 @requests_mock.mock()
@@ -23,10 +22,9 @@ class AppveyorReporterTest(unittest.TestCase):
                          'Permission denied or no such file or directory')
 
         with patch.dict('os.environ', {'APPVEYOR_JOB_ID': '12345',
-                                       'APPVEYOR_BUILD_FOLDER': ''}):
+                                       'APPVEYOR_BUILD_FOLDER': get_path()}):
             loader = coalaJsonLoader()
-            appveyor = AppveyorReporter(loader,
-                                        get_path('AppveyorReporterTest.py'))
+            appveyor = AppveyorReporter(loader, '/AppveyorReporterTest.py')
             m.post('https://ci.appveyor.com/api/testresults/junit/{}'
                    .format(os.getenv('APPVEYOR_JOB_ID')), status_code=200)
             self.assertEqual(appveyor.to_output(),
