@@ -46,6 +46,7 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
   - "%CMD_IN_ENV% python -m pip install --upgrade setuptools==21 pip~=9.0.1"
   - "%CMD_IN_ENV% python -m pip install -r test-requirements.txt"
+  - "%CMD_IN_ENV% pip install coala-json"
 
   # Add to path the current folder
   - "SET PYTHONPATH=%PYTHONPATH%;%CD%"
@@ -56,21 +57,8 @@ test_script:
   - "%CMD_IN_ENV% coala --json -o output.json"
   - "%CMD_IN_ENV% python -m pytest"
 
-on_success:
-  - "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --junit -f output.json -o repo.xml"
-  - codecov
-
-on_failure:
-  - "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --junit -f output.json -o repo.xml"
-  - codecov
-
-matrix:
-  fast_finish: true
-
 on_finish:
-  - ps: |
-      $wc = New-Object 'System.Net.WebClient'
-      $url = "https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)"
-      foreach ($file in Get-ChildItem -Path 'C:\projects\coala-json\*.xml' -Recurse) {
-              $wc.UploadFile($url, (Resolve-Path $file))
-            }
+  - if not %PYTHON_VERSION% == 2.7
+    coala-json --junit -f output.json -o report.xml
+  - if not %PYTHON_VERSION% == 2.7
+    "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --appveyor -f report.xml"

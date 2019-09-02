@@ -92,6 +92,9 @@ class CliTestCase(unittest.TestCase):
                                          '-o', 'report.xml'])
         self.assertIsNone(cli.produce_report(self.parser, parsed))
 
+        parsed = self.parser.parse_args(['--appveyor', '-f', 'report.xml'])
+        self.assertEqual(None, cli.produce_report(self.parser, parsed))
+
         parsed = self.parser.parse_args(['--checkstyle', '-f', 'output.json',
                                          '-o', 'report.xml'])
         self.assertIsNone(cli.produce_report(self.parser, parsed))
