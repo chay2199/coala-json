@@ -23,7 +23,7 @@ class AppveyorReporterTest(unittest.TestCase):
                          'Permission denied or no such file or directory')
 
         with patch.dict('os.environ', {'APPVEYOR_JOB_ID': '12345',
-                                       'APPVEYOR_BUILD_FOLDER': './'}):
+                                       'APPVEYOR_BUILD_FOLDER': ''}):
             loader = coalaJsonLoader()
             appveyor = AppveyorReporter(loader,
                                         get_path('AppveyorReporterTest.py'))
