@@ -9,7 +9,6 @@ from coala_json.loader.coalaJsonLoader import coalaJsonLoader
 
 def get_path(filename):
     file_path = os.path.join(os.path.dirname(__file__),
-                             'test_files/',
                              filename)
     return file_path
 
@@ -26,11 +25,13 @@ class AppveyorReporterTest(unittest.TestCase):
         with patch.dict('os.environ', {'APPVEYOR_JOB_ID': '12345',
                                        'APPVEYOR_BUILD_FOLDER': './'}):
             loader = coalaJsonLoader()
-            appveyor = AppveyorReporter(loader, 'AppveyorReporterTest.py')
+            appveyor = AppveyorReporter(loader,
+                                        get_path('AppveyorReporterTest.py'))
             m.post('https://ci.appveyor.com/api/testresults/junit/{}'
                    .format(os.getenv('APPVEYOR_JOB_ID')), status_code=200)
             self.assertEqual(appveyor.to_output(),
-                             'https://ci.appveyor.com/api/testresults/junit/12345')
+                             'https://ci.appveyor.com/api/testresults/junit/{}'
+                             .format(os.getenv('APPVEYOR_JOB_ID')))
 
 
 if __name__ == '__main__':
