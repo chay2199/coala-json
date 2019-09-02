@@ -17,13 +17,12 @@ def get_path(filename):
 @requests_mock.mock()
 class AppveyorReporterTest(unittest.TestCase):
 
-    def test_file_not_found(self):
+    def test_appveyor_upload(self, m):
         loader = coalaJsonLoader()
         appveyor = AppveyorReporter(loader, 'report.xml')
         self.assertEqual(appveyor.to_output(),
                          'Permission denied or no such file or directory')
 
-    def test_file(self, m):
         with patch.dict('os.environ', {'APPVEYOR_JOB_ID': '12345',
                                        'APPVEYOR_BUILD_FOLDER': './'}):
             loader = coalaJsonLoader()
