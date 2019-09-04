@@ -59,6 +59,6 @@ test_script:
 
 on_finish:
   - if not %PYTHON_VERSION% == 2.7
-    coala-json --junit -f output.json -o report.xml
+      coala-json --junit -f output.json -o report.xml
   - if not %PYTHON_VERSION% == 2.7
-    "%CMD_IN_ENV% python C:\\projects\\coala-json\\coala_json\\reporters\\cli\\cli.py --appveyor -f report.xml"
+      coala-json --appveyor -f report.xml"
